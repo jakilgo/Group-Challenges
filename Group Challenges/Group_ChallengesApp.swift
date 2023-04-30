@@ -11,7 +11,16 @@ import SwiftUI
 struct Group_ChallengesApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                LeaderboardView()
+                    .tabItem {
+                        Label("Leaderboard", systemImage: "medal")
+                    }
+                ProfileView()
+                    .tabItem {
+                        Label("Profile", systemImage: "person.crop.circle")
+                    }
+            }
         }
     }
 }
