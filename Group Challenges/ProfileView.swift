@@ -9,13 +9,12 @@ import SwiftUI
 import FirebaseAuth
 
 struct ProfileView: View {
-    @Binding var isLoggedIn: Bool
     @EnvironmentObject var dataViewModel: DataViewModel
     var body: some View {
         VStack {
             Spacer()
             TextField("Name",
-                      text: $dataViewModel.state.name,
+                      text: $dataViewModel.profileState.name,
                       prompt: Text("Name").foregroundColor(.blue))
                 .padding(10)
                 .overlay {
@@ -36,7 +35,7 @@ struct ProfileView: View {
                     } catch let signOutError as NSError {
                         print("Error signing out: %@", signOutError)
                     }
-                    isLoggedIn = false
+                    dataViewModel.isLoggedIn = false
                 } label: {
                     Text("Sign Out")
                         .font(.title2)
@@ -44,11 +43,10 @@ struct ProfileView: View {
                         .foregroundColor(.white)
                 }
                     .frame(height: 50)
-                    .frame(maxWidth: .infinity) // how to make a button fill all the space available horizontaly
+                    .frame(maxWidth: .infinity)
                     .background(.red)
                     .cornerRadius(20)
                 Button {
-//                    dataViewModel.state.points += 1
                     dataViewModel.updateProfile()
                 } label: {
                     Text("Save")
@@ -57,7 +55,7 @@ struct ProfileView: View {
                         .foregroundColor(.white)
                 }
                     .frame(height: 50)
-                    .frame(maxWidth: .infinity) // how to make a button fill all the space available horizontaly
+                    .frame(maxWidth: .infinity)
                     .background(.blue)
                     .cornerRadius(20)
             }.padding(.horizontal).padding(.vertical)

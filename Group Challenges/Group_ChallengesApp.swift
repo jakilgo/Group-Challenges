@@ -19,25 +19,31 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct Group_ChallengesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-    @State var isLoggedIn: Bool = false
     @StateObject var dataVM = DataViewModel()
     var body: some Scene {
         WindowGroup {
-            if (isLoggedIn) {
+            if (dataVM.isLoggedIn) {
                 TabView {
                     LeaderboardView()
                         .tabItem {
                             Label("Leaderboard", systemImage: "medal")
                         }
-                    ProfileView(isLoggedIn: $isLoggedIn)
+                        .environmentObject(dataVM)
+                    TrackPointsView()
+                        .tabItem {
+                            Label("Track Points", systemImage: "plus")
+                        }
+                        .environmentObject(dataVM)
+                    ProfileView()
                         .tabItem {
                             Label("Profile", systemImage: "person.crop.circle")
                         }
                         .environmentObject(dataVM)
-                }
+                }   .onAppear { dataVM.createListeners() }
+                    .onDisappear { dataVM.removeListeners() }
             } else {
-                LoginView(isLoggedIn: $isLoggedIn)
-                    .onAppear { isLoggedIn = (Auth.auth().currentUser?.uid != nil) }
+                LoginView()
+                    .environmentObject(dataVM)
             }
         }
     }

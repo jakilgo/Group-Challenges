@@ -17,7 +17,7 @@ struct LoginView: View {
     @State var password: String = ""
     @State var showPassword: Bool = false
     
-    @Binding var isLoggedIn: Bool
+    @EnvironmentObject var dataViewModel: DataViewModel
     
     var isSignInButtonDisabled: Bool {
         [email, password].contains(where: \.isEmpty)
@@ -78,7 +78,7 @@ struct LoginView: View {
                         case .emailAlreadyInUse:
                             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                                 if (error == nil) {
-                                    isLoggedIn = true
+                                    dataViewModel.isLoggedIn = true
                                 } else {
                                     print(error ?? "")
                                 }
@@ -86,6 +86,8 @@ struct LoginView: View {
                         default:
                             print("idk")
                         }
+                    } else {
+                        dataViewModel.isLoggedIn = true
                     }
                 }
             } label: {

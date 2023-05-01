@@ -31,6 +31,7 @@
 		E1BF2FE129FF386C009F1F04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E1BF2FE029FF386C009F1F04 /* GoogleService-Info.plist */; };
 		E1BF2FE329FF44CC009F1F04 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF2FE229FF44CC009F1F04 /* LoginView.swift */; };
 		E1BF2FEB29FFDCAF009F1F04 /* DataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF2FEA29FFDCAF009F1F04 /* DataViewModel.swift */; };
+		E1BF2FED2A00411E009F1F04 /* TrackPointsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BF2FEC2A00411E009F1F04 /* TrackPointsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		E1BF2FE029FF386C009F1F04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E1BF2FE229FF44CC009F1F04 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E1BF2FEA29FFDCAF009F1F04 /* DataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewModel.swift; sourceTree = "<group>"; };
+		E1BF2FEC2A00411E009F1F04 /* TrackPointsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackPointsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				E1BF2F9929FF18E1009F1F04 /* Assets.xcassets */,
 				E1BF2F9B29FF18E1009F1F04 /* Preview Content */,
 				E1BF2FE229FF44CC009F1F04 /* LoginView.swift */,
+				E1BF2FEC2A00411E009F1F04 /* TrackPointsView.swift */,
 			);
 			path = "Group Challenges";
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1BF2FED2A00411E009F1F04 /* TrackPointsView.swift in Sources */,
 				E1BF2FC429FF2825009F1F04 /* ProfileView.swift in Sources */,
 				E1BF2FC229FF277D009F1F04 /* LeaderboardView.swift in Sources */,
 				E1BF2FE329FF44CC009F1F04 /* LoginView.swift in Sources */,
