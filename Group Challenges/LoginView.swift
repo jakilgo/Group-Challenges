@@ -80,7 +80,7 @@ struct LoginView: View {
                                 if (error == nil) {
                                     isLoggedIn = true
                                 } else {
-                                    print(error)
+                                    print(error ?? "")
                                 }
                             }
                         default:
@@ -88,9 +88,6 @@ struct LoginView: View {
                         }
                     }
                 }
-//                Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-//                  guard let strongSelf = self else { return }
-//                }
             } label: {
                 Text("Sign In")
                     .font(.title2)
@@ -102,7 +99,7 @@ struct LoginView: View {
             .background(
                 isSignInButtonDisabled ? // how to add a gradient to a button in SwiftUI if the button is disabled
                 LinearGradient(colors: [.gray], startPoint: .topLeading, endPoint: .bottomTrailing) :
-                    LinearGradient(colors: [.blue, .red], startPoint: .topLeading, endPoint: .bottomTrailing)
+                    LinearGradient(colors: [.red, .blue], startPoint: .topLeading, endPoint: .bottomTrailing)
             )
             .cornerRadius(20)
             .disabled(isSignInButtonDisabled) // how to disable while some condition is applied
@@ -110,9 +107,3 @@ struct LoginView: View {
         }
     }
 }
-
-//struct LoginView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginView(isLoggedIn: false)
-//    }
-//}

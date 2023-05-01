@@ -20,6 +20,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct Group_ChallengesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State var isLoggedIn: Bool = false
+    @StateObject var dataVM = DataViewModel()
     var body: some Scene {
         WindowGroup {
             if (isLoggedIn) {
@@ -28,10 +29,11 @@ struct Group_ChallengesApp: App {
                         .tabItem {
                             Label("Leaderboard", systemImage: "medal")
                         }
-                    ProfileView()
+                    ProfileView(isLoggedIn: $isLoggedIn)
                         .tabItem {
                             Label("Profile", systemImage: "person.crop.circle")
                         }
+                        .environmentObject(dataVM)
                 }
             } else {
                 LoginView(isLoggedIn: $isLoggedIn)
