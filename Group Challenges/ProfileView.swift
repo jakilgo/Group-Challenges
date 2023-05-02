@@ -26,7 +26,7 @@ struct ProfileView: View {
                     
                 }
                 
-            Spacer()
+            TrackPointsView().environmentObject(dataViewModel)
             HStack {
                 Button {
                     let firebaseAuth = Auth.auth()

@@ -29,11 +29,6 @@ struct Group_ChallengesApp: App {
                             Label("Leaderboard", systemImage: "medal")
                         }
                         .environmentObject(dataVM)
-                    TrackPointsView()
-                        .tabItem {
-                            Label("Track Points", systemImage: "plus")
-                        }
-                        .environmentObject(dataVM)
                     ProfileView()
                         .tabItem {
                             Label("Profile", systemImage: "person.crop.circle")

@@ -9,9 +9,19 @@ import Foundation
 import FirebaseFirestore
 import FirebaseAuth
 
+
+class DailyData {
+    var date = ""
+    var steps = 0
+    var bonusExercise = 0
+    var medExercise = 0
+    var shortExercise = 0
+    var minWater = false
+}
 class UserData {
     var name = ""
     var points = 0
+    var days = [DailyData]()
 }
 
 class ListData: Identifiable {
@@ -53,7 +63,8 @@ class DataViewModel: ObservableObject {
     func updateProfile() {
         db.collection("Users").document(uid!).setData([
             "name": profileState.name,
-            "points": profileState.points
+            "points": profileState.points,
+            "days": profileState.days
         ]) { err in
             if let err = err {
                 print("Error writing document: \(err)")
@@ -77,6 +88,7 @@ class DataViewModel: ObservableObject {
                 }
                 self.profileState.name = data["name"]! as! String
                 self.profileState.points = data["points"]! as! Int
+                self.profileState.days = data["days"]! as! [DailyData]
                 print("Current data: \(data)")
             })
         listeners.append(db.collection("Users").order(by: "points", descending: true)

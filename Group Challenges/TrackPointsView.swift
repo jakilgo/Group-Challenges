@@ -7,9 +7,20 @@
 
 import SwiftUI
 
+var i = 0
+
 struct TrackPointsView: View {
     @EnvironmentObject var dataViewModel: DataViewModel
+    @State var selectedTab = "Fourth"
     var body: some View {
-        Text("Track Points")
+        TabView(selection: $selectedTab) {
+            ForEach(nums, id: \.self) { number in
+                LazyVStack(alignment: .center) {
+                    Text(number)
+                }.tag(nums)
+            }
+        }.tabViewStyle(.page(indexDisplayMode: .never))
     }
 }
+
+var nums = ["First", "Second", "Third", "Fourth"]
