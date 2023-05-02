@@ -10,13 +10,26 @@ import FirebaseFirestore
 import FirebaseAuth
 
 
-class DailyData {
-    var date = ""
-    var steps = 0
-    var bonusExercise = 0
-    var medExercise = 0
-    var shortExercise = 0
-    var minWater = false
+class DailyData: ObservableObject {
+    var date: String
+    var steps: Int
+    var bonusExercise: Int
+    var medExercise: Int
+    var shortExercise: Int
+    var minWater: Bool
+    
+    func getPrint () -> String {
+        return date
+    }
+    
+    init(date: String = "", steps: Int = 0, bonusExercise: Int = 0, medExercise: Int = 0, shortExercise: Int = 0, minWater: Bool = false) {
+        self.date = date
+        self.steps = steps
+        self.bonusExercise = bonusExercise
+        self.medExercise = medExercise
+        self.shortExercise = shortExercise
+        self.minWater = minWater
+    }
 }
 class UserData {
     var name = ""
@@ -61,10 +74,23 @@ class DataViewModel: ObservableObject {
     let db  = Firestore.firestore()
 
     func updateProfile() {
+        
+        var currDays: [[String: Any]] = []
+        for day in profileState.days {
+            let currDay: [String: Any] = [
+                "date": day.date,
+                "steps": day.steps + 1,
+                "bonusExercise": day.bonusExercise,
+                "medExercise": day.medExercise,
+                "shortExercise": day.shortExercise,
+                "minWater": day.minWater
+            ]
+            currDays.append(currDay)
+        }
         db.collection("Users").document(uid!).setData([
             "name": profileState.name,
             "points": profileState.points,
-            "days": profileState.days
+            "days": currDays
         ]) { err in
             if let err = err {
                 print("Error writing document: \(err)")
@@ -88,7 +114,23 @@ class DataViewModel: ObservableObject {
                 }
                 self.profileState.name = data["name"]! as! String
                 self.profileState.points = data["points"]! as! Int
-                self.profileState.days = data["days"]! as! [DailyData]
+                self.profileState.days.removeAll()
+                if (data["days"] != nil) {
+                    let days = data["days"]! as! [[String: Any]]
+                    for day in days {
+                        let newDay = DailyData(
+                            date: day["date"] as! String,
+                            steps: day["steps"] as! Int,
+                            bonusExercise: day["bonusExercise"] as! Int,
+                            medExercise: day["medExercise"] as! Int,
+                            shortExercise: day["shortExercise"] as! Int,
+                            minWater: day["minWater"] as! Bool
+                        )
+                        self.profileState.days.append(newDay)
+                    }
+                } else {
+                    self.profileState.days = [DailyData()]
+                }
                 print("Current data: \(data)")
             })
         listeners.append(db.collection("Users").order(by: "points", descending: true)

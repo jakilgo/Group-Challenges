@@ -25,7 +25,6 @@ struct ProfileView: View {
                 .onAppear {
                     
                 }
-                
             TrackPointsView().environmentObject(dataViewModel)
             HStack {
                 Button {

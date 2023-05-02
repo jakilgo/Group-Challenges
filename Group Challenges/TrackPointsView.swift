@@ -11,16 +11,16 @@ var i = 0
 
 struct TrackPointsView: View {
     @EnvironmentObject var dataViewModel: DataViewModel
-    @State var selectedTab = "Fourth"
+    @State var selectedTab = 1
     var body: some View {
         TabView(selection: $selectedTab) {
-            ForEach(nums, id: \.self) { number in
-                LazyVStack(alignment: .center) {
-                    Text(number)
-                }.tag(nums)
+            ForEach(0..<dataViewModel.profileState.days.count, id: \.self) { number in
+                LazyHStack(alignment: .center) {
+                    TrackPointsFormView()
+                        .environmentObject(dataViewModel.profileState.days[number])
+                }.tag(number)
             }
         }.tabViewStyle(.page(indexDisplayMode: .never))
     }
 }
 
-var nums = ["First", "Second", "Third", "Fourth"]
