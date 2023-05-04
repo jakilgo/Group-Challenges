@@ -19,7 +19,7 @@ class DailyData: ObservableObject {
     var minWater: Bool
     
     func getPrint () -> String {
-        return date
+        return String(bonusExercise)
     }
     
     init(date: String = "", steps: Int = 0, bonusExercise: Int = 0, medExercise: Int = 0, shortExercise: Int = 0, minWater: Bool = false) {
@@ -79,7 +79,7 @@ class DataViewModel: ObservableObject {
         for day in profileState.days {
             let currDay: [String: Any] = [
                 "date": day.date,
-                "steps": day.steps + 1,
+                "steps": day.steps,
                 "bonusExercise": day.bonusExercise,
                 "medExercise": day.medExercise,
                 "shortExercise": day.shortExercise,
@@ -127,6 +127,10 @@ class DataViewModel: ObservableObject {
                             minWater: day["minWater"] as! Bool
                         )
                         self.profileState.days.append(newDay)
+                    }
+                    let today = Date().formatted(date: .abbreviated, time: .omitted)
+                    if self.profileState.days.last?.date != today {
+                        self.profileState.days.append(DailyData(date: today))
                     }
                 } else {
                     self.profileState.days = [DailyData()]

@@ -16,11 +16,13 @@ struct TrackPointsView: View {
         TabView(selection: $selectedTab) {
             ForEach(0..<dataViewModel.profileState.days.count, id: \.self) { number in
                 LazyHStack(alignment: .center) {
-                    TrackPointsFormView()
+                    TrackPointsFormView(selectionBonus: String(dataViewModel.profileState.days[number].bonusExercise),
+                                        selectionMed: String(dataViewModel.profileState.days[number].medExercise), selectionShort: String(dataViewModel.profileState.days[number].shortExercise))
                         .environmentObject(dataViewModel.profileState.days[number])
                 }.tag(number)
             }
         }.tabViewStyle(.page(indexDisplayMode: .never))
+            .onAppear { selectedTab = dataViewModel.profileState.days.count-1 }
     }
 }
 

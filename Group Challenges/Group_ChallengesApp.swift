@@ -20,11 +20,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct Group_ChallengesApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject var dataVM = DataViewModel()
-    @State var selectedTab = 1
+//    @State var selectedTab = 1
     var body: some Scene {
         WindowGroup {
             if (dataVM.isLoggedIn) {
-                TabView(selection: $selectedTab) {
+                TabView {
                     LeaderboardView()
                         .tabItem {
                             Label("Leaderboard", systemImage: "medal")
@@ -33,7 +33,7 @@ struct Group_ChallengesApp: App {
                     ProfileView()
                         .tabItem {
                             Label("Profile", systemImage: "person.crop.circle")
-                        }
+                        }.tag(2)
                         .environmentObject(dataVM)
                 }   .onAppear { dataVM.createListeners() }
                     .onDisappear { dataVM.removeListeners() }
