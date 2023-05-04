@@ -100,6 +100,7 @@ class DataViewModel: ObservableObject {
                 "minWater": day.minWater
             ]
             currDays.append(currDay)
+            print(day.minWater)
         }
         db.collection("Users").document(uid!).setData([
             "name": profileState.name,

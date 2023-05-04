@@ -79,6 +79,7 @@ struct LoginView: View {
                             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                                 if (error == nil) {
                                     dataViewModel.isLoggedIn = true
+                                    print(email)
                                 } else {
                                     print(error ?? "")
                                 }
@@ -106,6 +107,10 @@ struct LoginView: View {
             .cornerRadius(20)
             .disabled(isSignInButtonDisabled) // how to disable while some condition is applied
             .padding()
+        }.onAppear {
+            email = ""
+            password = ""
+            showPassword = false
         }
     }
 }

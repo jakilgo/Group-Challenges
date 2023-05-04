@@ -73,12 +73,13 @@ struct TrackPointsFormView: View {
                     }
                 }
             }
-            Toggle(isOn: $minWater) {
+            HStack(alignment: .center) {
                 Text("Minimum Water?")
-            }
-            .toggleStyle(iOSCheckboxToggleStyle())
-            .onReceive([self.minWater].publisher.first()) { value in
-                currDay.minWater = value
+                Toggle(isOn: $minWater) {}
+                .toggleStyle(iOSCheckboxToggleStyle())
+                .onReceive([self.minWater].publisher.first()) { value in
+                    currDay.minWater = value
+                }
             }
             Spacer()
         }
@@ -91,7 +92,6 @@ struct iOSCheckboxToggleStyle: ToggleStyle {
             configuration.isOn.toggle()
         }, label: {
             HStack {
-                configuration.label
                 Image(systemName: configuration.isOn ? "checkmark.square" : "square")
             }
         })

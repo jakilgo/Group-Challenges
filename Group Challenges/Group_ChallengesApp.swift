@@ -36,7 +36,7 @@ struct Group_ChallengesApp: App {
                         }.tag(2)
                         .environmentObject(dataVM)
                 }   .onAppear { dataVM.createListeners() }
-                    .onDisappear { dataVM.removeListeners() }
+                    .onDisappear { dataVM.removeListeners(); print("cool") }
             } else {
                 LoginView()
                     .environmentObject(dataVM)
