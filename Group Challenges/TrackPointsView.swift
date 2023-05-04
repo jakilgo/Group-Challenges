@@ -17,7 +17,9 @@ struct TrackPointsView: View {
             ForEach(0..<dataViewModel.profileState.days.count, id: \.self) { number in
                 LazyHStack(alignment: .center) {
                     TrackPointsFormView(selectionBonus: String(dataViewModel.profileState.days[number].bonusExercise),
-                                        selectionMed: String(dataViewModel.profileState.days[number].medExercise), selectionShort: String(dataViewModel.profileState.days[number].shortExercise))
+                                        selectionMed: String(dataViewModel.profileState.days[number].medExercise),
+                                        selectionShort: String(dataViewModel.profileState.days[number].shortExercise),
+                                        minWater: dataViewModel.profileState.days[number].minWater)
                         .environmentObject(dataViewModel.profileState.days[number])
                 }.tag(number)
             }

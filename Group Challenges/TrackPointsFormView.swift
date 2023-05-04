@@ -13,6 +13,7 @@ struct TrackPointsFormView: View {
     @State var selectionBonus: String
     @State var selectionMed: String
     @State var selectionShort: String
+    @State var minWater: Bool
     var body: some View {
         VStack(alignment: .center) {
             Text(currDay.date).font(.title).bold()
@@ -72,7 +73,27 @@ struct TrackPointsFormView: View {
                     }
                 }
             }
+            Toggle(isOn: $minWater) {
+                Text("Minimum Water?")
+            }
+            .toggleStyle(iOSCheckboxToggleStyle())
+            .onReceive([self.minWater].publisher.first()) { value in
+                currDay.minWater = value
+            }
             Spacer()
         }
+    }
+}
+
+struct iOSCheckboxToggleStyle: ToggleStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        Button(action: {
+            configuration.isOn.toggle()
+        }, label: {
+            HStack {
+                configuration.label
+                Image(systemName: configuration.isOn ? "checkmark.square" : "square")
+            }
+        })
     }
 }

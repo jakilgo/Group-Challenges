@@ -72,9 +72,23 @@ class DataViewModel: ObservableObject {
     private var listeners: [ListenerRegistration] = []
     
     let db  = Firestore.firestore()
+    
+    func getPoints() -> Int {
+        var points = 0
+        for day in profileState.days {
+            if day.steps < 10000 {
+                continue
+            }
+            points += Int(floor(Double(day.steps) / 5000.0)) * 5
+            points += day.bonusExercise * 20
+            points += day.medExercise * 10
+            points += day.shortExercise * 5
+            points += day.minWater ? 10 : 0
+        }
+        return points
+    }
 
     func updateProfile() {
-        
         var currDays: [[String: Any]] = []
         for day in profileState.days {
             let currDay: [String: Any] = [
@@ -89,7 +103,7 @@ class DataViewModel: ObservableObject {
         }
         db.collection("Users").document(uid!).setData([
             "name": profileState.name,
-            "points": profileState.points,
+            "points": getPoints(),
             "days": currDays
         ]) { err in
             if let err = err {
@@ -154,6 +168,8 @@ class DataViewModel: ObservableObject {
     func removeListeners() {
         self.isLoggedIn = false
         self.uid = nil
+        self.listState = [ListData]()
+        self.profileState = UserData()
         for listener in listeners {
             listener.remove()
         }
